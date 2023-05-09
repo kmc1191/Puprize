@@ -1,0 +1,65 @@
+ul {list-style-type: none;}
+body {font-family: Verdana, sans-serif;}
+
+/* Month header */
+.month {
+  padding: 70px 25px;
+  width: 100%; /* very weird number, but it lines up with the days section with this width*/
+  background: #af79c3;
+  text-align: center;
+}
+
+/* Month -- December Only */
+.month ul {
+  margin: 0;
+  padding: 0;
+}
+
+.month ul li {
+  color: white;
+  font-size: 48px;
+  text-transform: none;
+  letter-spacing: 3px;
+}
+
+
+/* Weekdays (Sun-Sat) */
+.weekdays {
+  margin: 0;
+  padding: 10px 0;
+  background-color:rgb(221, 221, 221);
+}
+
+.weekdays li {
+  display: inline-block;
+  width: 13.6%;
+  color: rgb(119, 119, 119);
+  text-align: center;
+}
+
+/* Days (1-31) */
+.days {
+  padding: 10px 0;
+  background: rgb(164, 224, 246);
+  margin: 0;
+  color:rgb(0, 0, 0);
+}
+.days li {
+    list-style-type: none;
+    display: inline-block;
+    width: 13.6%;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size:20px;
+    color: rgb(224, 224, 224);
+  }
+
+.days a:link {
+  list-style-type: none;
+  display: inline-block;
+  width: 13.6%;
+  text-align: center;
+  margin-bottom: 5px;
+  font: 20px;
+  color: rgb(0, 0, 0);
+}

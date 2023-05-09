@@ -1,0 +1,248 @@
+<div *ngIf="profile == null">
+
+  <div class="container rounded bg-white mt-1 mb-3">
+  <p> No current user logged in, please click below to redirect to the login page.</p>
+
+  <button type="button" class="redirect" (click)="redirectUser();"
+            >Go To Login Page!</button> 
+
+  </div>
+
+</div>
+
+<div *ngIf="profile != null">
+
+  <div class="container rounded bg-white mt-1 mb-3">
+  <h2 style="text-align: center;">Profile Page</h2>
+  </div>
+
+
+  <div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md">
+            <div class="p-3 py-5">
+    
+                <div class="row mt-3">
+                
+                  <! Below is for no updating>
+                  <!--
+                    <h5 class="profile-name">Name: {{profile.name}}</h5>
+                    <h5 class="profile-username">Username: {{profile.username}}</h5>
+                    <h5 class="profile-password">Password: {{profile.password}}</h5>
+                    <h5 class="profile-email">Email: {{profile.email}}</h5>
+                    <h5 class="profile-phone">Phone: {{profile.phone}}</h5>
+
+                    -->
+
+
+                    <label for="username"><strong>Username: </strong>{{profile.username}}</label>
+
+                    <label for="name"><strong>Name: </strong></label>
+                    <input id="name" [(ngModel)]="profile.name" placeholder="Profile name"/>
+                    <br>
+
+                    <label for="password"><strong>Password: </strong> </label>
+                    <input id="password" [(ngModel)]="profile.password" placeholder="Profile password"/>
+                    <br>
+
+                    <label for="email"><strong>Email: </strong> </label>
+                    <input id="email" [(ngModel)]="profile.email" placeholder="Profile email"/>
+                    <br>
+
+                    <label for="phone"><strong>Phone: </strong> </label>
+                    <input id="phone" [(ngModel)]="profile.phone" placeholder="Profile phone"/>
+                    <br>
+
+                    <button type="button" class="update" title="Update profile"
+                    (click)="update(profile)">Save Changes</button>
+
+
+                    <div *ngIf="appointment != null && profile.isOwner == false">
+                     <h5 class="profile-appointment">Appointment: Date- {{appointment.date}}, Time- {{appointment.time}}</h5>
+                     <button type="button" class="cancel-appointment" (click)="cancelMyAppointment();">Cancel Appointment</button> 
+                    </div>
+                    <div *ngIf="appointment == null && profile.isOwner == false">
+                    <h5 class="no-appointment">No Appointment currently reserved.</h5>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="petProfile !=null">
+
+
+      <ul class = "petProfile">
+        <!-- <div *ngFor="let petProfile of petProfiles"> -->
+
+          <h2 style="text-align: center;">Pet Profile</h2>
+
+
+                <div class="card">
+    
+                
+                    <h5 class="card-title">{{petProfile.name}}
+                      <img src="assets/images/PetProfileImg.png" width = 50px height =50px class="product-picture" alt="Product image goes here :D">
+
+                    </h5>
+                    <ul class="list-group list-group-flush">
+                        <p class="list-group-item"><strong>Age</strong>: {{petProfile.age}} </p>
+                        <br>
+                        <p class="list-group-item"><strong>Breed</strong>: {{petProfile.breed}}</p>
+                        <br>
+                        <p class="list-group-item"><strong>Temperament</strong>: {{petProfile.temperament}}</p>
+                        <br>
+                        <p class="list-group-item"><strong>Extra Information</strong>: {{petProfile.extraInfo}}</p>
+                        <br>
+                        <p class="list-group-item"><strong>Style</strong>: {{petProfile.style}}</p>
+                        <br>
+
+                        <br>
+                        <p class="list-group-item"><strong>Nails</strong>: {{petProfile.nails}}</p>
+                        <br>
+                        <p class="list-group-item"><strong>Ear Clean</strong>: {{petProfile.earClean}}</p>
+                        <br>
+                        <p class="list-group-item"><strong>Bath</strong>: {{petProfile.bath}}</p>
+                        <br>
+                        <p class="list-group-item"><strong>Cut</strong>: {{petProfile.cut}}</p>
+                    </ul>
+
+                    <button type="button" class="delete" (click)="deletePet();">Delete Pet Profile</button> 
+
+    
+                </div> <!-- end for card -->
+
+                <br>
+    
+        <!-- </div> -->
+    
+      </ul>
+   
+    </div> <!-- if pet profile !=null div end -->
+
+    
+
+
+     <div *ngIf="petProfile==null && profile.isOwner == false">
+
+      <button type="button" class="create" (click)="setCreate();">Create Pet Profile!</button> 
+
+     </div>
+     
+     <div *ngIf = "!createdPet">
+     <br>
+     <br>
+     <br>
+    </div>
+
+
+     <div *ngIf = "createdPet">
+
+      <div *ngIf="petProfile==null">
+
+        <br><p><strong>All fields marked with a * are required</strong></p>
+  
+    
+      <form #createPetForm="ngForm" (ngSubmit) = "createPet(createPetForm.value)" >
+  
+  
+        <label for="name">* Pet Name: </label>
+        <input type="text" name="name" required ngModel> 
+        <br>
+  
+        <label for="age">* Pet Age: </label>
+        <input type="number" name="age" required ngModel> 
+        <br>
+  
+        <label for="breed">* Breed: </label>
+        <input type="text" name="breed" required ngModel> 
+        <br>
+  
+        <label for="temperament">Temperament: </label>
+        <input type="text" name="temperament" > 
+        <br>
+  
+        <label for="extraInfo">Extra Information: </label>
+        <input type="text" name="extraInfo" > 
+        <br>
+
+        
+        <input type="hidden" name="nails" value="false">
+        <input type="checkbox" name="nails" id="nails" [(ngModel)]="isCheckedNails"/>
+        <label for="nails">Nail Trim?</label>
+        <br>
+
+         <! if checked, nails will contain "yes" >
+         <! else if not checked, nails will contain "no" >
+         <! these field parameters are accessed through data.nails >
+
+        <input type="hidden" name="earClean" value="false">
+        <input type="checkbox" name="earClean" id="earClean" [(ngModel)]="isCheckedEar"/>
+        <label for="earClean">Ear Cleaning?</label>
+        <br>
+
+        <input type="hidden" name="bath" value="false">
+        <input type="checkbox" name="bath" id="bath" [(ngModel)]="isCheckedBath"/>
+        <label for="bath">Bath?</label>
+        <br>
+
+        <label for="style">Style of Hair Cut: </label>
+        <input type="text" name="style" required ngModel> 
+        <br>
+
+        <input type="hidden" name="cut" value="false">
+        <input type="checkbox" name="cut" id="cut" [(ngModel)]="isCheckedCut"/>
+        <label for="cut">Hair Cut?</label>
+        
+        <br>
+        <br>
+  
+  
+
+        <div class="form-actions">
+
+          <div *ngIf="!createPetForm.invalid">
+  
+          <button type="submit" class="btn btn-danger">Create Pet!</button>
+  
+          </div>
+
+        </div>
+  
+  
+        <div class="form-group">
+  
+          <div
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="createPetForm.invalid"> <strong>Fill out all required fields</strong>
+          </div> 
+
+          <br>
+          <br>
+  
+        </div>  <! end form-group>
+  
+  
+      </form> <! end form>
+
+    
+  
+    </div>  <! end ngIf for petProfile == null >
+  
+    </div>  <! end ngIf for createPet == null >
+
+
+  </div>
+
+  
+
+</div>
+
+
+
+
+
+

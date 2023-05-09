@@ -1,0 +1,146 @@
+<div class="d-sm-inline-flex">
+<app-product-search></app-product-search>
+</div>
+<div class="d-flex justify-content-center">
+    <div class="white-background">
+<h2> Pamper your pup with Puprize Products!</h2>
+
+<!--Sorting using changeDisplay
+<div *ngIf="profile != null">
+    <div *ngIf="profile.isOwner == true">
+        <div class="sort-buttons">
+            <button name="sort-by-price" class="button" (click)="changeDisplay('price')">Sort by price</button>
+            <button name="sort-by-name" class="button" (click)="changeDisplay('name')">Sort by name</button>
+            <button name="sort-by-quantity" class="button" (click)="changeDisplay('quantity')">Sort by quantity</button>
+        </div>
+    </div>
+</div>
+<br/>
+-->
+<!--Products List for null profiles-->
+<div *ngIf="profile == null">
+<div *ngFor="let product of products">
+    <div *ngIf="product.quantity > 0">
+        <div class="card">
+            <img src="assets/images/PuprizeLogo.jpg" width = 50px height =50px class="product-picture" alt="Puprize Logo">
+            <h5 class="card-title">{{product.name}}</h5>
+            <ul class="list-group list-group-flush">
+            <p class="list-group-item">Price: {{product.price}}</p>
+            </ul>
+            <div class="card-footer"><small class="text-muted"> {{product.quantity}} left in stock! Log in to purchase. </small></div>
+        </div>
+        </div>
+        <br />
+    </div>
+</div>
+
+<!--Separate Products list for logged in users-->
+<ul class = "products">
+    <div *ngIf="profile != null && profile.isOwner == false">
+    <div *ngFor="let product of products">
+        <div *ngIf="product.quantity > 0">
+            <div class="card">
+                <img src="assets/images/PuprizeLogo.jpg" width = 50px height =50px class="product-picture" alt="Puprize Logo">
+                <h5 class="card-title">{{product.name}}</h5>
+                <ul class="list-group list-group-flush">
+                <p class="list-group-item">Price: {{product.price}}</p>
+                </ul>
+            <div>
+                <div *ngIf="profile != null">
+                    <div *ngIf="profile.isOwner == false">
+                    <label for="add-product-quantity">Quantity to Add</label>
+                    <input type="number" min="1" max="{{product.quantity}}" oninput="validity.valid || (value='')" id="add-product-quantity" #addProductQuantity />
+                    <button type="button" class="add-to-cart" (click)="moveToCart(product.id, addProductQuantity.valueAsNumber);"
+                    > Add Product</button> 
+                    <div class="card-footer"><small class="text-muted"> {{product.quantity}} left in stock</small></div>
+                    </div>
+                </div>
+                <div *ngIf="profile == null">
+                <div class="card-footer"><small class="text-muted"> {{product.quantity}} left in stock! Log in to purchase. </small></div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <br />
+    </div>
+    </div>
+</ul>
+<!--Products list for owner-->
+<div *ngIf="profile != null">
+    <div *ngIf="profile.isOwner == true">
+        <div *ngFor="let product of products">
+            <div *ngIf="product.quantity >= 0">
+                <div class="card">
+                    <img src="assets/images/PuprizeLogo.jpg" width = 50px height =50px class="product-picture" alt="Puprize Logo">
+                    <div>
+                    <button type="button" class="delete" title="delete product" 
+                    (click)="delete(product)">x</button> 
+                    <!--<button type="button" class="prioritize" title="Prioritize this product"
+                    (click)="prioritize(product.id)">Prioritize</button> -->
+                    <button type="button" class="update" title="Update product" (click)="open(content)">
+                        Update product</button>
+                    </div>
+                    <h5 class="card-title">{{product.name}}</h5>
+                    <ul class="list-group list-group-flush">
+                    <p class="list-group-item">Price: {{product.price}}</p>
+                    </ul>
+                    <!--Update Product Modal-->
+                    <ng-template #content let-modal id="updateModal">
+                        <div class="modal-header">
+                            <h1 class="modal-title" id="update-Modal">Update Product: {{product.name}}</h1>
+                            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form #updateProductForm="ngForm" (ngSubmit)="update(product.id, product.name, updateProductForm.value); modal.close();"> 
+                                <div class="form-group">
+                                    <label for="price"> Updated Price</label>
+                                    <input type="number" min="0" placeholder="Previous: {{product.price}}"name="price" oninput="validity.valid || (value='');" required ngModel/>
+                                    <br/>
+                                    <label for="quantity"> Updated Quantity</label>
+                                    <input type="number" min="0" placeholder="Previous: {{product.quantity}}" name="quantity" oninput="validity.valid || (value='');" required ngModel/>
+                                </div>
+                                <div class="form-group">
+                                    <div
+                                    class="alert alert-danger"
+                                    role="alert"
+                                    *ngIf="updateProductForm.invalid"
+                                    >
+                                    Both fields are required
+                                    </div> 
+                                </div>
+                                <button type="submit" class="btn btn-secondary">Update</button>
+                            </form>
+                        </div>
+
+                    </ng-template> 
+                    <div class="card-footer"><small class="text-muted"> {{product.quantity}} left in stock</small></div>
+                </div>
+            </div>
+            <br/>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<!--Owner ability to create new product-->
+<div *ngIf="profile != null">
+    <div *ngIf="profile.isOwner == true">
+
+        <div class="d-flex justify-content-center">
+            <div class="white-background">
+                <h3>Add a new product:</h3> 
+                <br/>
+                <label for="new-product">Product name</label>
+                <input id="new-product" #productName />
+                <label for="new-product-price">Product price</label>
+                <input type="number" id="new-product-price" min="0" oninput="validity.valid || (value='');" #productPrice />
+                <label for="new-product-quantity">Product quantity</label>
+                <input type="number" id="new-product-quantity" min="0" oninput="validity.valid || (value='');" #productQuantity />
+                <button type="button" class="create-product" (click)="add(productName.value, productPrice.valueAsNumber, productQuantity.valueAsNumber);
+                productName.value=''"> Add product</button>
+            </div>
+        </div>
+    </div>
+</div>

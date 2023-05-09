@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+    background-image: url("assets/images/Puprize_Background.svg");
+    height: 250px;
+}
+
+.white-background{
+    background-color:white;
+    height: fit-content;
+    background-position: 50% 50%;
+    border-radius: 5em;
+    padding: 2em;
+}
+.white-background-flat{
+    background-color:white;
+    height: fit-content;
+    background-position: 50% 50%;
+}
+
+button{
+    border-radius: 0.5em;
+}
+
+button:hover{
+    background-color:lightblue;
+    transition: 0.3s;
+}

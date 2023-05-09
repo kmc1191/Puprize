@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center">
+    <div class="white-background">
+        <ngb-carousel *ngIf="images">
+            <ng-template ngbSlide>
+                <div class="dog-image">
+                    <img width="700" height="500" [src]="images[0]" alt="Picture of dog being groomed" />
+                </div>
+                <div class="carousel-caption">
+                    <h3>Standard Bath and Cut -$40</h3>
+                    <p>Includes bath, brush out, and full body haircut. Indicate what style you would like on your pet’s profile.</p>
+                </div>
+            </ng-template>
+            <ng-template ngbSlide>
+                <div class="dog-image">
+                    <img width="700" height="500" [src]="images[1]" alt="Picture of dog with haircut" />
+                </div>
+                <div class="carousel-caption">
+                    <h3>Standard Cut -$25</h3>
+                    <p>Includes a full body haircut. Indicate what style you would like on your pet’s profile.</p>
+                </div>
+            </ng-template>
+            <ng-template ngbSlide>
+                <div class="dog-image">
+                    <img width="700" height="500" [src]="images[2]" alt="Picture of dog with ears being cleaned" />
+                </div>
+                <div class="carousel-caption">
+                    <h3>Ear Clean -$8</h3>
+                    <p>As part of your appointment your groomer will additionally clean your dog’s ears.</p>
+                </div>
+            </ng-template>
+            <ng-template ngbSlide>
+                <div class="dog-image">
+                    <img width="700" height="500" [src]="images[3]" alt="Picture of dog with nails trimmed" />
+                </div>
+                <div class="carousel-caption">
+                    <h3>Nail Trim -$12</h3>
+                    <p>As part of your appointment your groomer will additionally trim your dog’s nails.</p>
+                </div>
+            </ng-template>
+        </ngb-carousel>
+    </div>
+</div>
+

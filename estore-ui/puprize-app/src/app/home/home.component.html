@@ -1,0 +1,123 @@
+<style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    .column {
+      float: left;
+      width: 33.33%;
+      padding: 5px;
+    }
+    
+    /* Clearfix (clear floats) */
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    .container{
+    float: left;
+    padding: 5px;
+
+    width: 300px;
+
+    position: relative;
+    
+
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    overflow: hidden;
+    border: 10px solid #ffffff;
+    border-radius: 8px;
+    box-shadow: -1px 5px 15px black;
+}
+
+/*Area of images*/
+.wrapper{
+    width: 100%;
+    display: flex;
+    animation: slide 16s infinite;
+}
+
+/*Animation activated by keyframes*/
+@keyframes slide{
+    0%{
+        transform: translateX(0);
+    }
+    25%{
+        transform: translateX(0);
+    }
+    30%{
+        transform: translateX(-100%);
+    }
+    50%{
+        transform: translateX(-100%);
+    }
+    55%{
+        transform: translateX(-200%);
+    }
+    75%{
+        transform: translateX(-200%);
+    }
+    80%{
+        transform: translateX(-300%);
+    }
+    100%{
+        transform: translateX(-300%);
+    }
+}
+
+
+    </style>
+
+
+<div class="d-flex justify-content-center">
+    <div class="white-background">
+        
+        <div class="row">
+            <div class="column">
+
+                <div class="container">
+                    <!--Area of the images-->
+                       <div class="wrapper">
+                            <img src="assets/images/AxelPhoto.jpeg" alt="Axel photo" style="width:100%">
+                            <img src="assets/images/BellePhoto2.jpeg" alt="Belle photo" style="width:100%">
+                            <img src="assets/images/CosmoPhoto.jpeg" alt="Cosmo photo" style="width:100%">
+                            <img src="assets/images/ZukiPhoto.jpeg" alt="Zuki photo" style="width:100%">
+                       </div>
+                    
+                    </div>
+
+            </div>
+            <div class="column">
+                <img src="assets/images/PuprizeLogo.jpg" alt="Puprize logo" style="width:100%">
+            </div>
+            <div class="column">
+
+                <div class="container">
+                    <!--Area of the images-->
+                       <div class="wrapper">
+                            <img src="assets/images/AxelPhoto2.jpeg" alt="Axel photo2" style="width:100%">
+                            <img src="assets/images/AxelPhoto3.jpeg" alt="Belle photo2" style="width:100%">
+                            <img src="assets/images/CosmoPhoto2.jpeg" alt="Cosmo photo2" style="width:100%">
+                            <img src="assets/images/ZukoPhoto.jpeg" alt="Zuko photo" style="width:100%">
+                       </div>
+                    
+                    </div>
+                
+
+            </div>
+          </div>
+        
+        
+        <br>
+
+        <p>
+            Welcome to Puprize! Your very own dog grooming salon servicing the Rochester area since 2016. We are a team of committed grooming professionals  ready to service your pup for any grooming needs and provide an array of dog grooming products for you to use at home! You can rest easy knowing your dog is in the hands of our loving groomers who can cater to your needs. Our products we sell ensure you get the best possible treatment for your dog that mirrors what we use in the salon. We hope you choose us for your next grooming appointment and we can’t wait to have you!
+        </p>
+        <h3>Phone: 401-374-9863 </h3>
+        <h3>Location: 25 Winter St. Rochester, NY, 14623</h3>
+    </div>
+</div>

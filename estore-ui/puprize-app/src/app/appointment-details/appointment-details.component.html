@@ -1,0 +1,73 @@
+<div class="d-flex justify-content-center" >
+  <div class="white-background">
+<ul class="appointments">
+  <div *ngIf="profile == null">
+    <p>To view the available appointment times for this date you must first log in or create an account.</p>
+  </div>
+  <div *ngIf="profile != null">
+    <div *ngIf="profile.isOwner == false">
+      <div *ngIf="profile.appointment != null">
+        <p>Your appointment has been scheduled. Reserving multiple appointments is not allowed.
+           To view existing appointments, go to your profile.
+           If you would like to reserve a different date or time for your appointment, you must first cancel your existing appointment.
+        </p>
+      </div>
+      <div *ngIf="profile.appointment == null">
+        <h2>Appointments for {{date}}</h2>
+        <p>Appointment times range from 12pm-7pm</p>
+        <div *ngFor="let appointment of appointments">
+          <div class="card text-center" style="width:100%">
+          <div *ngIf="appointment != null">
+              <h5 class="appointment-time">{{appointment.time}} pm</h5>
+              <div class="card-footer">
+                <div *ngIf="appointment.reserved == false">
+                <button type="button" width="100%" class="reserve" title="reserve appointment"
+                (click)="appointment.reserved = true; appointment.user= profile.username; update(appointment)">Confirm Reservation</button>
+            </div>
+            <div *ngIf="appointment.reserved == true">
+              <h5 class="appointment-time">There is no appointment available for {{appointment.time}}</h5>
+            </div>
+          </div>
+          </div>
+        </div>
+        <br/>
+      </div>
+      </div>
+    </div>
+    <div *ngIf="profile.isOwner == true">
+      <h2>Appointments for {{date}}</h2>
+      <div *ngFor="let appointment of appointments">
+        <div *ngIf="appointment != null">
+          <div class="card" style="width: 100%">
+            <div class="card-body">
+          <h5 class="appointment-id">Appointment ID: {{appointment.id}}</h5>
+          <ul class="list-group list-group-flush">
+          <h5 class="appointment-time">Time: {{appointment.time}} pm</h5>
+          <h5 class="appointment-user">User: {{appointment.user}}</h5>
+        </ul>
+          <label for="groomer">Groomer: </label>
+          <input id="groomer" [(ngModel)]="appointment.groomer" placeholder="Groomer name"/>
+          <div *ngIf="appointment.reserved == true">
+            <h5 class="appointment-status">Status: Reserved</h5>
+            <div *ngIf="appointment.user == 'BlockedByOwner'">
+              <button type="button" class="reopen" title="reopen appointment"
+              (click)="appointment.reserved = false; appointment.user =''; update(appointment)">Reopen Appointment Slot</button>
+            </div>
+          </div>
+          <div *ngIf="appointment.reserved == false">
+            <h5 class="appointment-status">Status: Open</h5>
+            <button type ="button" class="block" title="block appointment"
+            (click)="appointment.reserved = true; appointment.user = 'BlockedByOwner'; update(appointment)">Block Appointment Slot</button>
+          </div>
+        </div>
+          <button type="button" class="groomer" title="set groomer"
+          (click)="update(appointment)">Save Changes</button>
+        </div>
+        <br/>
+      </div>
+    </div>
+    </div>
+  </div>
+</ul>
+</div>
+</div>

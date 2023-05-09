@@ -1,0 +1,24 @@
+<div class="white-background">
+<div id="search-component">
+    <label for="search-box">Product Search </label>
+    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+    <p><small>Click to bring the product to the top</small></p>
+  
+    <ul class="search-result">
+      <div *ngIf="profile != null && profile.isOwner">
+      <li *ngFor="let product of products$ | async" >
+          <div *ngIf="product.quantity >= 0">
+        <button type="button" title="Click to bring to top" class="prioritize" (click)="prioritize(product);">{{product.name}}</button>
+        </div>
+      </li>
+    </div>
+    <div *ngIf="(profile != null && profile.isOwner == false) || (profile == null)">
+      <div *ngFor="let product of products$ | async" >
+        <div *ngIf="product.quantity > 0">
+      <button type="button" title="Click to bring to top" class="prioritize" (click)="prioritize(product);">{{product.name}}</button>
+      </div>
+    </div>
+    </div>
+    </ul>
+  </div>
+</div>

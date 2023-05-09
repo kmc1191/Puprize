@@ -1,0 +1,142 @@
+<div class="d-flex justify-content-center">
+  <div class="white-background">
+<h2 style="text-align: center;">Login</h2>
+ 
+<! ng submit means what to run when the form is submitted, so this would theoretically be where I call>
+<! the login function I created but idk what to do and how to manipulate the form>
+<div *ngIf="profile == null">
+<div *ngIf = "!createUser">
+
+<form #loginForm="ngForm" (ngSubmit) = "loginUser(loginForm.value)" >
+
+       <label for="username">Username</label>
+       <em class="fa fa-key"></em>
+       <input type="text" name="username" required ngModel> 
+
+       <label for="password">Password</label>
+       <em class="fa fa-lock"></em>
+       <input type="password" name="password" required ngModel> 
+     
+   <div class="form-actions">
+    <div *ngIf= "profile == null">
+       <button type="submit" class="btn btn-danger">Login</button>
+      </div>
+   </div>
+
+   <div class="form-group">
+    <div
+      class="alert alert-danger"
+      role="alert"
+      *ngIf="loginForm.invalid"
+    >
+      Username and password fields are required
+    </div> 
+    <div
+      class="alert alert-danger"
+      role="alert"
+      *ngIf="loginForm.submitted && profile == null"
+    >
+      Login failed, incorrect username and/or password
+    </div>
+  </div>
+
+</form>
+</div>
+</div> <! end div for create user>
+
+
+<div *ngIf = "!createUser">
+<div *ngIf="profile == null">
+<button type="button" class="create" (click)="setCreate();"
+            >First Time User?</button> 
+</div>
+</div>
+
+  <div *ngIf = "createUser">
+
+    <div *ngIf="profile==null">
+
+    <form #createUserForm="ngForm" (ngSubmit) = "createProfileHelper(createUserForm.value)" >
+
+
+      <label for="name">Name: </label> 
+      <input type="text" name="name" required ngModel> 
+      <br>
+
+      <label for="username">Username: </label> 
+      <input type="text" name="username" required ngModel> 
+      <br>
+
+      <label for="password">Password: </label> 
+      <input type="text" name="password" required ngModel> 
+      <br>
+
+      <label for="email">Email: </label> 
+      <input type="text" name="email" required ngModel> 
+      <br>
+
+      <label for="phone">Phone: </label>
+      <input type="text" name="phone" required ngModel> 
+
+
+      <div class="form-actions">
+
+        <div *ngIf="!createUserForm.invalid">
+
+        <button type="submit" class="btn btn-danger">Create Profile</button>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="createUserForm.invalid"> All fields are required
+        </div> 
+
+      </div>  <! end form-group>
+
+
+    </form> <! end form>
+
+  </div>  <! end ngIf for profile == null >
+
+  </div>  <! end ngIf for createUser == null >
+
+
+
+<div *ngIf="profile != null">
+  <p>Hello, {{profile.name}}!</p>
+</div>
+
+
+<!--
+<div *ngIf = "profile != null">
+  <label for="ProfileName">{{profile.name}}</label>
+ </div>
+
+ <div *ngIf = "profile != null">
+  <label for="ProfileName">{{profile.username}}</label>
+ </div>
+
+ <div *ngIf = "profile != null">
+  <label for="ProfileName">{{profile.password}}</label>
+ </div>
+-->
+
+<div *ngIf = "profile != null">
+  <button type="button" class="logout" (click)="logoutUser();"
+            >Logout</button> 
+ </div>
+</div>
+</div>
+
+
+
+
+
+ 

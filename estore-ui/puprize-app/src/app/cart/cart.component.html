@@ -1,0 +1,183 @@
+<!-- 
+<p>cart works!</p>
+
+
+<div *ngIf = "profile != null">
+    <label for="ProfileName">{{profile.name}}</label>
+   </div>
+  
+   <div *ngIf = "profile != null">
+    <label for="ProfileName">{{profile.username}}</label>
+   </div>
+  
+   <div *ngIf = "profile != null">
+    <label for="ProfileName">{{profile.password}}</label>
+   </div>
+
+<div *ngIf = "checked != null">
+    <label for="Cost:">{{checked.cost}}</label>
+   </div>
+
+   <div *ngIf = "checked != null">
+    <label for="CheckoutItems">{{checked.invalidItems}}</label>
+   </div>
+
+    <label for="CheckoutItems">{{this.newAdd}}</label>
+
+-->
+
+<div *ngIf="profile == null">
+
+    <div class="container rounded bg-white mt-1 mb-3">
+        <p> You must be logged in to view and interact with your shopping cart. Please click below to redirect to the login page.</p>
+    
+        <button type="button" class="redirect" (click)="redirectToLogin();"
+                >Go To Login Page!</button> 
+  
+    </div>
+  
+</div>
+
+<div *ngIf="profile != null">
+        <div *ngIf="profile.isOwner == true">
+
+            <div class="container rounded bg-white mt-1 mb-3">
+                <p> This tab is for the customers to purchase products. If you would like to make a purchase, please log in as a customer. </p>
+                    <button type="button" class="redirect" (click)="redirectToLogin();"
+                            >Go To Login Page!</button> 
+            </div>
+        </div>
+</div>
+<ul class = "cart">
+    <div *ngIf="profile != null">
+        <div *ngIf="profile.isOwner == false">
+            <div class="d-flex justify-content-center">
+            <div class="white-background">
+                <h1>{{profile.name}}'s Cart</h1>
+    <div *ngFor="let product of cart">
+        <div *ngIf = "product != null">
+            <div class="card">
+                <img src="assets/images/PuprizeLogo.jpg" width = 50px height =50px class="product-picture" alt="Product image goes here :D">
+            <h5 class="card-title">{{product.name}}</h5>
+            <ul class="list-group list-group-flush">
+                <!--
+                <p class="list-group-item">This will be a description of the item</p>
+                -->
+                <p class="list-group-item">Price: {{product.price}}</p>
+                <p class="list-group-item">Quantity: {{product.quantity}}</p>
+            </ul>
+            <div>
+                <label for="new-product-quantity">Amount to Remove</label>
+                <input type="number" min="1" max="{{product.quantity}}" oninput="validity.valid || (value='')" id="new-product-quantity" #productQuantity />
+                <button type="button" class="remove-product" (click)="remove(product.id, productQuantity.valueAsNumber);"> Remove Product</button>
+                
+            </div>
+            <br />
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div *ngIf = "cart != null ">
+        <div *ngIf = "cart[0] != null">
+            <button type="button" class="empty-cart" (click)="emptyCart();">Empty Cart</button><br>
+            <button type="button" class="open-checkout-modal" (click)="open(checkoutModal)">Checkout</button>
+            <label id="totalPrice">Total cost of all items in your cart: ${{totalCost}}</label><br><br>
+        </div>
+    </div>
+    <ng-template #checkoutModal let-modal id="checkoutModal">
+        <div class="modal-header">
+            <h1 class="modal-title" id="checkout-Modal">Checkout</h1>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+            <div class="modal-body">
+            <form>
+                <label for="holderName">Card Holder's Name: </label>
+                <em class="fa fa-key"></em>
+                <div *ngIf = "profile != null ">
+                <input type="text" name="holderName" placeholder={{profile.name}} required /><br/>
+                </div>
+                <div *ngIf = "profile == null ">
+                    <input type="text" name="holderName" required /><br/>
+                </div>
+
+                <label for="cardNumber">Credit Card Number: </label><br/>
+                <em class="fa fa-key"></em>
+                <input type="text" name="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX" required /><br/>
+        
+                <label for="expireDate">Expiration Date: </label><br/>
+                <em class="fa fa-key"></em>
+                <input type="text" name="expireDate" placeholder="mm/yy" required /><br/>
+
+                <label for="cvv">CVV: </label><br/>
+                <em class="fa fa-key"></em>
+                <input type="text" name="cvv" placeholder="XXX" required /><br/>
+
+                <label for="myCheck">Check for Delivery </label>
+                <input type="checkbox" id="myCheck" /><br/>
+                <label id="delivery" for="myCheck">Please note that there is a ${{DELIVERY_FEE}} delivery fee.</label>
+
+                <label for="address">Home Address (enter N/A if you did not check the box for delivery): </label><br/>
+                <em class="fa fa-key"></em>
+                <input type="text" name="address" placeholder="City, StreetAddress ZIP" required/><br/>
+
+                <br/>
+                <button type="submit" class="btn btn-danger" (click)="checkout();">Submit Checkout Information</button><br/>
+                <label for="requiredFields">All fields except "Home Address" are required.</label><br/>
+        </form>
+    </div>
+    </ng-template>
+    </div>
+
+
+
+        <!--
+        <div *ngIf = "cart[0] != null">
+            <button type="button" class="checkout-products" (click)="checkout();"> Checkout </button>
+        </div>
+            -->
+    <div *ngIf = "checked != null ">
+        <div class="d-flex justify-content-center">
+        <div class="white-background">
+        <label for="checked-out">Please note that this receipt will not be saved once you leave this page. 
+            We encourage you to take a photo or a screenshot of this page to save your receipt.</label>
+        <label for="checked-out">Thank you for shopping with us! Your purchase for ${{checked.cost}} has been completed.</label>
+        <label for="checked-out">Please note that if you selected to have your purchase delivered, this is not your final cost. You have been charged with an additional ${{DELIVERY_FEE}} delivery fee.</label>
+                <div *ngIf = "checked.invalidItems.length > 0 ">
+             <label for="items that could not be checked out">Some items in your cart were not able to be checked out, as they are no longer in stock. 
+                The following items were removed from your cart before checkout:</label>
+                <div *ngFor="let product of checked.invalidItems">
+                    <div *ngIf = "product != null">
+                        <div class="card" style="width: 50%">
+                            <img src="assets/images/PuprizeLogo.jpg" width = 50px height =50px class="product-picture" alt="Product image goes here :D">
+                        <h5 class="card-title">{{product.name}}</h5>
+                        <ul class="list-group list-group-flush">
+                            <!--
+                            <p class="list-group-item">This will be a description of the item</p>
+                            -->
+                            <p class="list-group-item">Price: {{product.price}}</p>
+                            <p class="list-group-item">Quantity: {{product.quantity}}</p>
+                        </ul>
+                        <br />
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <div *ngIf = "cart != null ">
+        <div *ngIf = "cart[0] == null">
+            <div class="container rounded bg-white mt-1 mb-3">
+                <p> There are no items in your cart. Would you like to browse the inventory? </p>
+                <button type="button" class="redirect" (click)="redirectUser();"
+                >Go To Products Page!</button> 
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+</ul>
+

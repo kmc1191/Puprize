@@ -1,0 +1,36 @@
+<ul class = "petProfile">
+    <!-- <div *ngFor="let product of products"> -->
+        <div *ngIf="petProfile !=null"> 
+            <div class="card">
+
+            
+                <h5 class="card-title">{{petProfile.name}}</h5>
+                <ul class="list-group list-group-flush">
+                    <p class="list-group-item">Age: {{petProfile.age}} </p>
+                    <br>
+                    <p class="list-group-item">Breed: {{petProfile.breed}}</p>
+                    <br>
+                    <p class="list-group-item">Temperament: {{petProfile.temperament}}</p>
+                    <br>
+                    <p class="list-group-item">Extra Information: {{petProfile.extraInfo}}</p>
+                    <br>
+                    <p class="list-group-item">Nails?: {{petProfile.nails}}</p>
+                    <br>
+                    <p class="list-group-item">Ear Clean?: {{petProfile.earClean}}</p>
+                    <br>
+                    <p class="list-group-item">Bath? : {{petProfile.bath}}</p>
+                    <br>
+                    <p class="list-group-item">Style: {{petProfile.style}}</p>
+                    <br>
+                    <p class="list-group-item">Cut? : {{petProfile.cut}}</p>
+                    <br>
+                </ul>
+
+            </div>
+
+     </div> 
+
+    <!-- </div> -->
+
+</ul>
+        
