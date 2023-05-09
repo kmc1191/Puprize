@@ -1,7 +1,6 @@
-# E-Store:  _____ Puprize Pet Grooming_ _____
-# Modify this document to expand any and all sections that are applicable for a better understanding from your users/testers/collaborators (remove this comment and other instructions areas for your FINAL release)
+# E-Store: Puprize Pet Grooming
 
-An online E-store system built in Java 17 and ___ _replace with other platform requirements_ ___
+An online E-store system built in Java 17
   
 ## Team
 
@@ -16,21 +15,18 @@ An online E-store system built in Java 17 and ___ _replace with other platform r
 
 - Java 8=>11 (Make sure to have correct JAVA_HOME setup in your environment) (using Java 17)
 - Maven
--  _add any other tech stack requirements_
-
 
 ## How to run it
 
 1. Clone the repository and go to the root directory.
-2. Execute `mvn compile exec:java`
-3. Open in your browser `http://localhost:8080/`
-4.  _add any other steps required or examples of how to use/run_
+2. Execute `mvn compile exec:java` in "estore-api"
+3. In a different terminal, with the back-end now running, navigate to "estore-api/puprize-app" and run ng serve --open
+4. Open in your browser `http://localhost:8080/`
+
 
 ## Known bugs and disclaimers
-(It may be the case that your implementation is not perfect.)
+No documented bugs as of this release
 
-Document any known bug or nuisance.
-If any shortcomings, make clear what these are and where they are located.
 
 ## How to test it
 
